@@ -40,8 +40,22 @@ export function transformBlogPost(entry: Entry<any>): BlogPostEntry {
   const extractString = (value: any): string => {
     if (!value) return ''
     if (typeof value === 'string') return value
-    if (typeof value === 'object' && value.fields) return String(value.fields.title || value.fields.name || '')
-    return String(value)
+    if (typeof value === 'object') {
+      if (value.fields) {
+        const fieldValue = value.fields.title || value.fields.name || value.fields.text || ''
+        return typeof fieldValue === 'string' ? fieldValue : ''
+      }
+      if (value.sys) {
+        return ''
+      }
+    }
+    try {
+      const stringValue = String(value)
+      if (stringValue === '[object Object]') return ''
+      return stringValue
+    } catch {
+      return ''
+    }
   }
   
   const extractTags = (tags: any): string[] => {
@@ -49,8 +63,17 @@ export function transformBlogPost(entry: Entry<any>): BlogPostEntry {
     if (Array.isArray(tags)) {
       return tags.map(tag => {
         if (typeof tag === 'string') return tag
-        if (typeof tag === 'object' && tag.fields) return String(tag.fields.name || tag.fields.title || '')
-        return String(tag)
+        if (typeof tag === 'object' && tag.fields) {
+          const tagValue = tag.fields.name || tag.fields.title || tag.fields.text || ''
+          return typeof tagValue === 'string' ? tagValue : ''
+        }
+        try {
+          const stringValue = String(tag)
+          if (stringValue === '[object Object]') return ''
+          return stringValue
+        } catch {
+          return ''
+        }
       }).filter(Boolean)
     }
     return []
