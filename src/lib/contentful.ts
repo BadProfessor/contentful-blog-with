@@ -34,26 +34,46 @@ export function transformBlogPost(entry: Entry<any>): BlogPostEntry {
     featuredImageUrl = `https:${fields.thumbnail.fields.file.url}`
   }
   
-  const title = fields.title || fields.name || fields.heading || 'Untitled'
-  const slug = fields.slug || title.toLowerCase().replace(/\s+/g, '-') || entry.sys.id
+  const title = String(fields.title || fields.name || fields.heading || 'Untitled')
+  const slug = String(fields.slug || title.toLowerCase().replace(/\s+/g, '-') || entry.sys.id)
+  
+  const extractString = (value: any): string => {
+    if (!value) return ''
+    if (typeof value === 'string') return value
+    if (typeof value === 'object' && value.fields) return String(value.fields.title || value.fields.name || '')
+    return String(value)
+  }
+  
+  const extractTags = (tags: any): string[] => {
+    if (!tags) return []
+    if (Array.isArray(tags)) {
+      return tags.map(tag => {
+        if (typeof tag === 'string') return tag
+        if (typeof tag === 'object' && tag.fields) return String(tag.fields.name || tag.fields.title || '')
+        return String(tag)
+      }).filter(Boolean)
+    }
+    return []
+  }
   
   return {
     id: entry.sys.id,
     title,
     slug,
-    excerpt: fields.excerpt || fields.description || fields.summary || fields.shortDescription || '',
+    excerpt: extractString(fields.excerpt || fields.description || fields.summary || fields.shortDescription),
     content: fields.content || fields.body || fields.text || fields.richText || null,
     publishedDate: fields.publishedDate || fields.date || fields.publishDate || entry.sys.createdAt,
     featuredImageUrl,
-    featuredImageAlt: fields.featuredImage?.fields?.title 
+    featuredImageAlt: extractString(
+      fields.featuredImage?.fields?.title 
       || fields.image?.fields?.title 
       || fields.heroImage?.fields?.title
       || fields.thumbnail?.fields?.title
-      || title 
-      || 'Blog post image',
-    author: fields.author || fields.authorName || fields.writer || undefined,
-    category: fields.category || fields.categoryName || fields.type || undefined,
-    tags: Array.isArray(fields.tags) ? fields.tags : [],
+      || title
+    ) || 'Blog post image',
+    author: extractString(fields.author || fields.authorName || fields.writer) || undefined,
+    category: extractString(fields.category || fields.categoryName || fields.type) || undefined,
+    tags: extractTags(fields.tags),
     createdAt: entry.sys.createdAt,
     updatedAt: entry.sys.updatedAt,
   }

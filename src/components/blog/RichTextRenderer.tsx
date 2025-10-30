@@ -54,7 +54,11 @@ const options: Options = {
       const target = node?.data?.target
       if (!target || !target.fields) return null
       
-      const { file, title, description } = target.fields
+      const fields = target.fields
+      const file = fields.file
+      const title = typeof fields.title === 'string' ? fields.title : ''
+      const description = typeof fields.description === 'string' ? fields.description : ''
+      
       const url = file?.url ? `https:${file.url}` : ''
       
       if (!url) return null
@@ -63,7 +67,7 @@ const options: Options = {
         <figure className="my-8">
           <img
             src={url}
-            alt={description || title || ''}
+            alt={description || title || 'Embedded image'}
             className="w-full rounded-lg"
           />
           {(title || description) && (
