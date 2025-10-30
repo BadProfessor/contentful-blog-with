@@ -1,19 +1,23 @@
-import { createClient, Entry } from 'contentful'
+import { createClient, Entry, ContentfulClientApi } from 'contentful'
 import type { BlogPost, BlogPostEntry } from '@/types/blog'
 
 const spaceId = import.meta.env.VITE_CONTENTFUL_SPACE_ID
 const accessToken = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN
 const environment = import.meta.env.VITE_CONTENTFUL_ENVIRONMENT || 'master'
 
-if (!spaceId || !accessToken) {
-  console.error('Missing Contentful credentials. Please check your .env.local file.')
+let contentfulClient: ContentfulClientApi<undefined> | null = null
+
+if (spaceId && accessToken) {
+  contentfulClient = createClient({
+    space: spaceId,
+    accessToken: accessToken,
+    environment: environment,
+  })
+} else {
+  console.warn('Contentful credentials not configured. Client not initialized.')
 }
 
-export const contentfulClient = createClient({
-  space: spaceId,
-  accessToken: accessToken,
-  environment: environment,
-})
+export { contentfulClient }
 
 export function transformBlogPost(entry: Entry<any>): BlogPostEntry {
   const fields = entry.fields as BlogPost['fields']
@@ -38,6 +42,10 @@ export function transformBlogPost(entry: Entry<any>): BlogPostEntry {
 }
 
 export async function getBlogPosts(): Promise<BlogPostEntry[]> {
+  if (!contentfulClient) {
+    throw new Error('Contentful client not initialized. Please configure your credentials.')
+  }
+
   try {
     const response = await contentfulClient.getEntries({
       content_type: 'blogPost',
@@ -53,6 +61,10 @@ export async function getBlogPosts(): Promise<BlogPostEntry[]> {
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPostEntry | null> {
+  if (!contentfulClient) {
+    throw new Error('Contentful client not initialized. Please configure your credentials.')
+  }
+
   try {
     const response = await contentfulClient.getEntries({
       content_type: 'blogPost',
@@ -72,6 +84,10 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPostEntry | n
 }
 
 export async function getAllCategories(): Promise<string[]> {
+  if (!contentfulClient) {
+    return []
+  }
+
   try {
     const response = await contentfulClient.getEntries({
       content_type: 'blogPost',
