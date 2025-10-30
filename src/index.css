@@ -13,33 +13,33 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.18 0.02 285);
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.18 0.01 285);
   
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.02 285);
+  --card-foreground: oklch(0.18 0.01 285);
   
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.02 285);
+  --popover-foreground: oklch(0.18 0.01 285);
   
-  --primary: oklch(0.45 0.18 285);
+  --primary: oklch(0.38 0.13 285);
   --primary-foreground: oklch(1 0 0);
   
-  --secondary: oklch(0.35 0.16 265);
-  --secondary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.01 285);
+  --secondary-foreground: oklch(0.18 0.01 285);
   
   --muted: oklch(0.96 0.005 285);
-  --muted-foreground: oklch(0.50 0.02 285);
+  --muted-foreground: oklch(0.48 0.01 285);
   
-  --accent: oklch(0.55 0.20 285);
+  --accent: oklch(0.68 0.15 285);
   --accent-foreground: oklch(1 0 0);
   
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(1 0 0);
   
-  --border: oklch(0.92 0.005 285);
+  --border: oklch(0.90 0.005 285);
   --input: oklch(0.92 0.005 285);
-  --ring: oklch(0.45 0.18 285);
+  --ring: oklch(0.38 0.13 285);
   
   --radius: 0.5rem;
 }

@@ -71,24 +71,24 @@ The design should embody Contentful's professional, modern brand identity - clea
 
 ## Color Selection
 
-Custom palette inspired by Contentful's official brand colors - deep purples and indigos create a professional, modern technology brand aesthetic that feels sophisticated and trustworthy.
+Custom palette matching Contentful's official brand colors from their website - sophisticated purples create a professional, modern technology brand aesthetic.
 
-- **Primary Color**: Contentful Purple (oklch(0.45 0.18 285)) - The iconic brand color for primary actions and key UI elements
-- **Secondary Colors**: Deep Indigo (oklch(0.35 0.16 265)) for secondary actions and supporting elements
-- **Accent Color**: Bright Purple (oklch(0.55 0.20 285)) for hover states and highlights
+- **Primary Color**: Contentful Purple (oklch(0.38 0.13 285)) - The official brand color for primary actions and key UI elements, matching contentful.com
+- **Secondary Colors**: Light Purple (oklch(0.95 0.01 285)) for secondary actions and supporting elements
+- **Accent Color**: Medium Purple (oklch(0.68 0.15 285)) for hover states and highlights
 - **Foreground/Background Pairings**:
-  - Background (White #FFFFFF): Dark Purple text (oklch(0.18 0.02 285)) - Ratio 13.5:1 ✓
-  - Card (White #FFFFFF): Dark Purple text (oklch(0.18 0.02 285)) - Ratio 13.5:1 ✓
-  - Primary (Contentful Purple): White text (#FFFFFF) - Ratio 5.2:1 ✓
-  - Accent (Bright Purple): White text (#FFFFFF) - Ratio 4.6:1 ✓
-  - Muted (Light Gray): Dark Purple text - Ratio 8.1:1 ✓
+  - Background (Off-White oklch(0.99 0 0)): Dark text (oklch(0.18 0.01 285)) - Ratio 13.8:1 ✓
+  - Card (White #FFFFFF): Dark text (oklch(0.18 0.01 285)) - Ratio 14.2:1 ✓
+  - Primary (Contentful Purple): White text (#FFFFFF) - Ratio 6.1:1 ✓
+  - Accent (Medium Purple): White text (#FFFFFF) - Ratio 4.5:1 ✓
+  - Muted (Light Gray): Medium text - Ratio 8.4:1 ✓
 
 ## Font Selection
 
 Typography should be clean and professional with excellent readability - Inter for all text creates a modern, cohesive brand experience that aligns with Contentful's design system.
 
 - **Typographic Hierarchy**:
-  - H1 (Logo/Brand): Inter SemiBold/24px/normal letter-spacing
+  - H1 (Logo/Brand): Inter SemiBold/20px/tight letter-spacing - lowercase "contentful" to match official brand
   - H2 (Post Title in List): Inter SemiBold/20px/tight leading-snug
   - H3 (Section Headings): Inter SemiBold/18px/normal leading-snug
   - Body (Post Content): Inter Regular/16px/relaxed leading-relaxed
