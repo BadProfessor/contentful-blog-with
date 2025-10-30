@@ -8,6 +8,7 @@ import { EmptyState } from '@/components/blog/EmptyState'
 import { ErrorState } from '@/components/blog/ErrorState'
 import { MissingCredentials } from '@/components/blog/MissingCredentials'
 import { BlogPostCardSkeleton } from '@/components/blog/BlogPostCardSkeleton'
+import { Logo } from '@/components/blog/Logo'
 import { Separator } from '@/components/ui/separator'
 import { Toaster } from '@/components/ui/sonner'
 import { toast } from 'sonner'
@@ -89,9 +90,7 @@ function App() {
         <header className="border-b border-border bg-white">
           <div className="container mx-auto px-6 py-6 md:px-12">
             <div className="flex items-center gap-2">
-              <svg className="h-6 w-6 text-primary" viewBox="0 0 24 24" fill="currentColor">
-                <circle cx="12" cy="12" r="10"/>
-              </svg>
+              <Logo />
               <h1 className="text-xl font-semibold text-foreground tracking-tight">
                 contentful
               </h1>
@@ -119,9 +118,7 @@ function App() {
         <header className="border-b border-border bg-white">
           <div className="container mx-auto px-6 py-6 md:px-12">
             <div className="flex items-center gap-2">
-              <svg className="h-6 w-6 text-primary" viewBox="0 0 24 24" fill="currentColor">
-                <circle cx="12" cy="12" r="10"/>
-              </svg>
+              <Logo />
               <h1 className="text-xl font-semibold text-foreground tracking-tight">
                 contentful
               </h1>
@@ -155,9 +152,7 @@ function App() {
       <header className="border-b border-border bg-white">
         <div className="container mx-auto px-6 py-6 md:px-12">
           <div className="flex items-center gap-2">
-            <svg className="h-6 w-6 text-primary" viewBox="0 0 24 24" fill="currentColor">
-              <circle cx="12" cy="12" r="10"/>
-            </svg>
+            <Logo />
             <h1 className="text-xl font-semibold text-foreground tracking-tight">
               contentful
             </h1>
