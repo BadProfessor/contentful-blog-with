@@ -53,6 +53,10 @@ export async function getBlogPosts(): Promise<BlogPostEntry[]> {
       limit: 100,
     })
 
+    if (!response.items || response.items.length === 0) {
+      return []
+    }
+
     return response.items.map(transformBlogPost).sort((a, b) => {
       return new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()
     })

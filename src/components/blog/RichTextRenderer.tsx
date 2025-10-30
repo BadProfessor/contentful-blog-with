@@ -3,7 +3,7 @@ import { BLOCKS, INLINES, Document } from '@contentful/rich-text-types'
 import type { Options } from '@contentful/rich-text-react-renderer'
 
 interface RichTextRendererProps {
-  content: Document
+  content: Document | any
 }
 
 const options: Options = {
@@ -51,7 +51,10 @@ const options: Options = {
     ),
     [BLOCKS.HR]: () => <hr className="my-8 border-border" />,
     [BLOCKS.EMBEDDED_ASSET]: (node) => {
-      const { file, title, description } = node.data.target.fields
+      const target = node?.data?.target
+      if (!target || !target.fields) return null
+      
+      const { file, title, description } = target.fields
       const url = file?.url ? `https:${file.url}` : ''
       
       if (!url) return null
@@ -89,5 +92,22 @@ export function RichTextRenderer({ content }: RichTextRendererProps) {
     return <p className="text-muted-foreground">No content available.</p>
   }
 
-  return <div className="prose max-w-none">{documentToReactComponents(content, options)}</div>
+  if (typeof content === 'string') {
+    return (
+      <div className="prose max-w-none">
+        <p className="mb-4 text-lg leading-relaxed text-foreground">{content}</p>
+      </div>
+    )
+  }
+
+  if (!content.nodeType || content.nodeType !== 'document') {
+    return <p className="text-muted-foreground">No content available.</p>
+  }
+
+  try {
+    return <div className="prose max-w-none">{documentToReactComponents(content, options)}</div>
+  } catch (error) {
+    console.error('Error rendering rich text:', error)
+    return <p className="text-muted-foreground">Error rendering content.</p>
+  }
 }
