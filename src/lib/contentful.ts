@@ -54,8 +54,17 @@ export async function getBlogPosts(): Promise<BlogPostEntry[]> {
     })
 
     return response.items.map(transformBlogPost)
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching blog posts:', error)
+    
+    if (error.sys?.id === 'NotFound') {
+      throw new Error('Unknown content type "blogPost". Please create the content model in Contentful.')
+    }
+    
+    if (error.message?.includes('The resource could not be found')) {
+      throw new Error('Unknown content type "blogPost". Please create the content model in Contentful.')
+    }
+    
     throw error
   }
 }

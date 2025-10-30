@@ -41,11 +41,24 @@ function App() {
       ])
       setPosts(postsData)
       setCategories(categoriesData)
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error fetching data:', err)
-      setError(
-        'Failed to load blog posts. Please check your Contentful credentials and try again.'
-      )
+      
+      let errorMessage = 'Failed to load blog posts. '
+      
+      if (err.message?.includes('Unknown content type')) {
+        errorMessage = 'Content model not found. Please create the "blogPost" content type in your Contentful space. See contentful-setup.md for instructions.'
+      } else if (err.message?.includes('404')) {
+        errorMessage = 'Contentful space not found. Please verify your Space ID is correct.'
+      } else if (err.message?.includes('401') || err.message?.includes('Unauthorized')) {
+        errorMessage = 'Invalid credentials. Please check your Access Token.'
+      } else if (err.message?.includes('network') || err.message?.includes('fetch')) {
+        errorMessage = 'Network error. Please check your internet connection and try again.'
+      } else {
+        errorMessage += 'Please check your Contentful setup and try again.'
+      }
+      
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }
