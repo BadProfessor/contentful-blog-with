@@ -62,171 +62,171 @@ Create a modern, elegant blog platform that integrates with Contentful CMS. This
 - Generous whitespace and padding (px-6 py-12 on mobile, px-12 py-20 on desktop)
 - Clean header with logo and tagline
 - Container with max-width for comfortable reading
-- Grid layout with gap-8 spacing between cards
-
 **Components to Use:**
-- Card, Button, Input, Badge, Separator from shadcn
-- Use Toaster (sonner) for notifications
-- Skeleton components for loading states
-- Use Phosphor icons (MagnifyingGlass for search, ArrowLeft for back navigation, FunnelSimple for filters, etc.)
 
+- Use Phosphor icons (
 ### Technical Implementation:
-
 **File Structure:**
-- `/src/components/blog/` - All blog-specific components
-  - BlogPostCard.tsx - Card component for post preview
-  - BlogPostDetail.tsx - Full post view with rich text
+  - BlogPostCard.tsx - Card component fo
   - BlogPostCardSkeleton.tsx - Loading skeleton
-  - SearchBar.tsx - Search input component
-  - CategoryFilter.tsx - Category filter dropdown
-  - RichTextRenderer.tsx - Contentful rich text renderer
-  - EmptyState.tsx - No results state
-  - ErrorState.tsx - Error display with retry
-  - MissingCredentials.tsx - Setup instructions
-  - Logo.tsx - Site logo component
-- `/src/lib/contentful.ts` - Contentful client and API functions
-- `/src/types/blog.ts` - TypeScript interfaces for blog data
 
-**Key Functions:**
-- `getBlogPosts()` - Fetch all posts from Contentful, sort by date descending
-- `transformBlogPost()` - Transform Contentful entry to app format with flexible field mapping
-- Rich text rendering using @contentful/rich-text-react-renderer
-- Real-time filtering using useMemo for performance
+  - EmptyState.tsx - No resul
 
-**Environment Variables:**
+- `/src/lib/content
+
+- `getBlogPosts()` - Fetch all posts from Contentful, 
+- Rich text rendering using @contentful/rich-text-reac
+
 Create a `.env.example` file with:
-```
 VITE_CONTENTFUL_SPACE_ID=your_space_id_here
-VITE_CONTENTFUL_ACCESS_TOKEN=your_access_token_here
 VITE_CONTENTFUL_ENVIRONMENT=master
-```
 
-**Error Handling:**
 - Validate credentials on app load
-- Show helpful setup instructions if credentials missing
-- Display clear error messages with retry options for API failures
-- Gracefully handle missing fields with fallbacks
+- Display clear error messages with retry optio
 - Console warnings for debugging
-
 **Contentful Content Model:**
-The app should be flexible and work with various field names, but the expected model is:
 - title (Text)
-- slug (Text)
-- excerpt (Text)
-- content (Rich Text)
-- publishedDate (Date)
-- featuredImage (Media)
+
+- publishedDate (D
 - author (Text)
-- category (Text)
 - tags (Text, list)
-
 ### Additional Polish:
+- Smooth fade-in animations for cards and detail vi
 
-- Smooth fade-in animations for cards and detail views
-- Hover effects on cards (subtle lift and shadow)
-- Loading states that maintain layout (no content shift)
-- Clean footer with copyright
-- Proper date formatting (format: "MMM dd, yyyy")
-- Responsive images with proper aspect ratios
+- Proper date formatting (
 - Keyboard navigation support
-- WCAG AA compliant color contrast
 
-### Documentation:
 
-Create comprehensive documentation files:
 - README.md - Full setup guide and feature overview
-- SETUP.md - Detailed Contentful setup instructions
-- CREDENTIALS.md - Where and how to add API credentials
-- contentful-setup.md - Content model creation guide
-- PRD.md - Product requirements and design system
+- CREDENTIALS.md - Where and how t
+- P
 
-### Install Required Packages:
-
-The following packages need to be installed:
-- contentful (Contentful SDK)
-- @contentful/rich-text-react-renderer (for rendering rich text)
-- @contentful/rich-text-types (type definitions)
+The following packa
+- @contentful/rich-text-react-rend
 - date-fns (for date formatting)
+All other necessary packages (React, Vite, Tailwind, shadcn compon
 
-All other necessary packages (React, Vite, Tailwind, shadcn components, Phosphor icons, sonner, framer-motion) should already be available in the Spark template.
-```
 
----
 
-## After Recreation Steps
 
-Once the app is created, users will need to:
-
-1. Install the Contentful packages:
    ```bash
-   npm install contentful @contentful/rich-text-react-renderer @contentful/rich-text-types date-fns
    ```
+2. Create a C
+3. Get API crede
+4. Create a `.env.loc
+   VITE_CONTENTFUL_SPA
+   VITE_CONTENTFUL_ENVI
 
-2. Create a Contentful account and space at [contentful.com](https://www.contentful.com/sign-up/)
 
-3. Get API credentials from Settings → API keys
 
-4. Create a `.env.local` file in the root with their credentials:
-   ```env
-   VITE_CONTENTFUL_SPACE_ID=your_actual_space_id
-   VITE_CONTENTFUL_ACCESS_TOKEN=your_actual_access_token
-   VITE_CONTENTFUL_ENVIRONMENT=master
-   ```
 
-5. Create the blog post content model in Contentful (see contentful-setup.md)
 
-6. Create and publish some sample blog posts
 
-7. Run the dev server: `npm run dev`
 
----
-
-## Key Features to Verify
-
-After recreation, ensure these features work:
-
-- ✅ App loads and shows skeleton loaders
-- ✅ Missing credentials message displays if no .env.local
-- ✅ Blog posts fetch and display in grid layout
+- ✅ Missing credentials message displays if no .e
 - ✅ Search filters posts in real-time
-- ✅ Category filter works correctly
-- ✅ Clicking a card opens full post detail
-- ✅ Back button returns to blog list
+- ✅ Clicking a card opens ful
 - ✅ Rich text content renders properly
-- ✅ Images load and display correctly
-- ✅ Responsive design works on mobile/tablet/desktop
-- ✅ Error states show retry button
-- ✅ Empty states display when appropriate
-- ✅ Smooth animations and transitions
-- ✅ All documentation files are created
+- ✅ Responsive design works on mobile/tablet/
+- ✅ Empty states display when
+- ✅ All documentation files are cr
 
----
+## Design Checklis
 
-## Design Checklist
-
-Ensure the recreated app has:
-
-- ✅ Warm, editorial color palette (sage green accents)
-- ✅ Inter font throughout
+- ✅ Warm, editorial color palette (sage g
 - ✅ Generous whitespace and padding
-- ✅ Clean, minimal header with logo
 - ✅ Card-based layout with subtle shadows
-- ✅ Smooth hover effects on cards
 - ✅ Clear typographic hierarchy
-- ✅ Category badges with accent color
 - ✅ Professional footer
-- ✅ Beautiful empty and error states
 - ✅ Consistent 44px touch targets
-- ✅ WCAG AA compliant contrast ratios
 
----
 
-## Customization Notes
 
-The recreated app can be customized by:
 
-- Changing colors in `src/index.css` (CSS variables)
-- Updating fonts in `index.html` and `src/index.css`
-- Modifying the content model mapping in `src/lib/contentful.ts`
+- Updating fonts in `index.ht
 - Adjusting layout in component files
-- Adding new features like pagination, related posts, comments, etc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
