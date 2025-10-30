@@ -1,11 +1,11 @@
 # Planning Guide
 
-A modern, elegant blog platform with built-in persistence that delivers beautiful content experiences with seamless navigation and responsive design.
+A modern blog platform showcasing Contentful's CMS capabilities with the company's signature branding, delivering professional content experiences with seamless navigation and responsive design.
 
 **Experience Qualities**:
-1. **Refined** - Clean typography and generous spacing create a premium reading experience
+1. **Professional** - Clean, modern design language that communicates reliability and technical excellence
 2. **Effortless** - Intuitive navigation and smooth transitions make content discovery natural
-3. **Inviting** - Warm colors and thoughtful details encourage exploration and engagement
+3. **Branded** - Contentful's signature purple palette and cohesive design system create instant brand recognition
 
 **Complexity Level**: Light Application (multiple features with basic state)
   - Displays blog posts from Contentful CMS with list and detail views, search functionality, and category filtering
@@ -67,33 +67,33 @@ A modern, elegant blog platform with built-in persistence that delivers beautifu
 
 ## Design Direction
 
-The design should feel refined and editorial, like a premium digital magazine - elegant yet approachable with generous whitespace and sophisticated typography. A minimal interface serves the content, letting beautiful imagery and well-crafted writing take center stage.
+The design should embody Contentful's professional, modern brand identity - clean, purposeful, and technical yet approachable. The interface should feel like a premium SaaS product with sharp UI elements and Contentful's signature purple and indigo color palette that communicates innovation and reliability.
 
 ## Color Selection
 
-Analogous (adjacent colors on color wheel) - A sophisticated palette of warm neutrals with sage green accents creates a calm, inviting reading environment that feels both modern and timeless.
+Custom palette inspired by Contentful's official brand colors - deep purples and indigos create a professional, modern technology brand aesthetic that feels sophisticated and trustworthy.
 
-- **Primary Color**: Deep charcoal (oklch(0.25 0.01 270)) - Conveys sophistication and readability for primary text
-- **Secondary Colors**: Warm gray (oklch(0.45 0.01 60)) for secondary text and subtle UI elements; Soft beige (oklch(0.95 0.02 80)) for card backgrounds
-- **Accent Color**: Sage green (oklch(0.65 0.08 150)) for interactive elements, links, and category badges - feels fresh and inviting without overwhelming
+- **Primary Color**: Contentful Purple (oklch(0.45 0.18 285)) - The iconic brand color for primary actions and key UI elements
+- **Secondary Colors**: Deep Indigo (oklch(0.35 0.16 265)) for secondary actions and supporting elements
+- **Accent Color**: Bright Purple (oklch(0.55 0.20 285)) for hover states and highlights
 - **Foreground/Background Pairings**:
-  - Background (Ivory #FDFCFB): Deep charcoal text (#3A3A3C) - Ratio 12.1:1 ✓
-  - Card (Soft Beige #F8F6F3): Deep charcoal text (#3A3A3C) - Ratio 11.2:1 ✓
-  - Primary (Deep Charcoal #3A3A3C): Ivory text (#FDFCFB) - Ratio 12.1:1 ✓
-  - Accent (Sage Green #8BAA7F): White text (#FFFFFF) - Ratio 4.6:1 ✓
-  - Muted (Warm Gray #9A9A8C): Deep charcoal text (#3A3A3C) - Ratio 4.8:1 ✓
+  - Background (White #FFFFFF): Dark Purple text (oklch(0.18 0.02 285)) - Ratio 13.5:1 ✓
+  - Card (White #FFFFFF): Dark Purple text (oklch(0.18 0.02 285)) - Ratio 13.5:1 ✓
+  - Primary (Contentful Purple): White text (#FFFFFF) - Ratio 5.2:1 ✓
+  - Accent (Bright Purple): White text (#FFFFFF) - Ratio 4.6:1 ✓
+  - Muted (Light Gray): Dark Purple text - Ratio 8.1:1 ✓
 
 ## Font Selection
 
-Typography should feel refined and editorial with excellent readability - a contemporary serif for headings adds personality while a clean sans-serif ensures effortless body text reading.
+Typography should be clean and professional with excellent readability - Inter for all text creates a modern, cohesive brand experience that aligns with Contentful's design system.
 
 - **Typographic Hierarchy**:
-  - H1 (Page Title): Playfair Display Bold/48px/tight letter-spacing/-0.02em
-  - H2 (Post Title in List): Playfair Display SemiBold/32px/tight leading-snug
-  - H3 (Section Headings): Playfair Display SemiBold/24px/normal leading-snug
-  - Body (Post Content): Inter Regular/18px/relaxed leading-relaxed/letter-spacing normal
-  - Small (Metadata): Inter Medium/14px/normal tracking-wide uppercase
-  - Caption (Dates): Inter Regular/14px/normal text-muted-foreground
+  - H1 (Logo/Brand): Inter SemiBold/24px/normal letter-spacing
+  - H2 (Post Title in List): Inter SemiBold/20px/tight leading-snug
+  - H3 (Section Headings): Inter SemiBold/18px/normal leading-snug
+  - Body (Post Content): Inter Regular/16px/relaxed leading-relaxed
+  - Small (Metadata): Inter Regular/12px/normal text-muted-foreground
+  - Caption (Dates): Inter Regular/12px/normal text-muted-foreground
 
 ## Animations
 

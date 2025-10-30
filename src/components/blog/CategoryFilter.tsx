@@ -21,7 +21,7 @@ export function CategoryFilter({
       <span className="text-sm font-medium text-muted-foreground">Filter by:</span>
       <Badge
         variant={selectedCategory === null ? 'default' : 'outline'}
-        className="cursor-pointer transition-all hover:scale-105"
+        className="cursor-pointer transition-all hover:scale-105 bg-primary text-primary-foreground hover:bg-primary/90"
         onClick={() => onSelectCategory(null)}
       >
         All
@@ -30,7 +30,11 @@ export function CategoryFilter({
         <Badge
           key={category}
           variant={selectedCategory === category ? 'default' : 'outline'}
-          className="cursor-pointer transition-all hover:scale-105"
+          className={`cursor-pointer transition-all hover:scale-105 ${
+            selectedCategory === category 
+              ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
+              : 'border-primary/30 text-primary hover:bg-primary/10'
+          }`}
           onClick={() => onSelectCategory(selectedCategory === category ? null : category)}
         >
           {category}

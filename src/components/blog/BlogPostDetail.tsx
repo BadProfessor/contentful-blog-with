@@ -25,14 +25,14 @@ export function BlogPostDetail({ post, onBack }: BlogPostDetailProps) {
       <Button
         variant="ghost"
         onClick={onBack}
-        className="mb-8 -ml-4 transition-transform hover:-translate-x-1"
+        className="mb-8 -ml-4 text-primary transition-transform hover:bg-primary/5 hover:-translate-x-1"
       >
-        <ArrowLeft size={20} className="mr-2" />
+        <ArrowLeft size={20} weight="regular" className="mr-2" />
         Back to Articles
       </Button>
 
       {post.featuredImageUrl && (
-        <div className="mb-8 aspect-video w-full overflow-hidden rounded-lg">
+        <div className="mb-8 aspect-video w-full overflow-hidden rounded-lg bg-muted">
           <img
             src={post.featuredImageUrl}
             alt={post.featuredImageAlt || safeTitle}
@@ -43,23 +43,23 @@ export function BlogPostDetail({ post, onBack }: BlogPostDetailProps) {
 
       <header className="mb-8 space-y-4">
         {safeCategory && (
-          <Badge variant="secondary" className="text-sm">
+          <Badge variant="secondary" className="text-sm bg-primary/10 text-primary hover:bg-primary/20">
             {safeCategory}
           </Badge>
         )}
-        <h1 className="font-display text-4xl font-bold leading-tight text-foreground md:text-5xl">
+        <h1 className="text-4xl font-bold leading-tight text-foreground md:text-5xl">
           {safeTitle}
         </h1>
         <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
-            <Calendar size={18} />
+            <Calendar size={16} weight="regular" />
             <time dateTime={post.publishedDate}>{formattedDate}</time>
           </div>
           {safeAuthor && (
             <>
               <span className="text-border">•</span>
               <div className="flex items-center gap-2">
-                <User size={18} />
+                <User size={16} weight="regular" />
                 <span>{safeAuthor}</span>
               </div>
             </>
@@ -69,12 +69,12 @@ export function BlogPostDetail({ post, onBack }: BlogPostDetailProps) {
 
       {safeExcerpt && (
         <>
-          <p className="mb-8 text-xl leading-relaxed text-secondary">{safeExcerpt}</p>
+          <p className="mb-8 text-lg leading-relaxed text-muted-foreground">{safeExcerpt}</p>
           <Separator className="mb-8" />
         </>
       )}
 
-      <div className="mb-12">
+      <div className="mb-12 prose prose-lg max-w-none">
         <RichTextRenderer content={post.content} />
       </div>
 
@@ -84,7 +84,7 @@ export function BlogPostDetail({ post, onBack }: BlogPostDetailProps) {
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-sm font-medium text-muted-foreground">Tags:</span>
             {safeTags.map((tag) => (
-              <Badge key={tag} variant="outline">
+              <Badge key={tag} variant="outline" className="border-primary/30 text-primary">
                 {tag}
               </Badge>
             ))}

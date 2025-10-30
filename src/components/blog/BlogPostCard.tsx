@@ -19,11 +19,11 @@ export function BlogPostCard({ post, onClick }: BlogPostCardProps) {
 
   return (
     <Card
-      className="group cursor-pointer overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+      className="group cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-xl border-border bg-white"
       onClick={onClick}
     >
       {post.featuredImageUrl && (
-        <div className="aspect-video w-full overflow-hidden">
+        <div className="aspect-video w-full overflow-hidden bg-muted">
           <img
             src={post.featuredImageUrl}
             alt={post.featuredImageAlt || safeTitle}
@@ -33,27 +33,27 @@ export function BlogPostCard({ post, onClick }: BlogPostCardProps) {
       )}
       <CardHeader className="space-y-3 pb-4">
         {safeCategory && (
-          <Badge variant="secondary" className="w-fit">
+          <Badge variant="secondary" className="w-fit bg-primary/10 text-primary hover:bg-primary/20">
             {safeCategory}
           </Badge>
         )}
-        <h2 className="font-display text-2xl font-semibold leading-snug text-foreground transition-colors group-hover:text-accent">
+        <h2 className="text-xl font-semibold leading-snug text-foreground transition-colors group-hover:text-primary">
           {safeTitle}
         </h2>
       </CardHeader>
       <CardContent className="pb-4">
-        <p className="line-clamp-3 text-base leading-relaxed text-muted-foreground">
+        <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground">
           {safeExcerpt}
         </p>
       </CardContent>
-      <CardFooter className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+      <CardFooter className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
         <div className="flex items-center gap-2">
-          <Calendar size={16} />
+          <Calendar size={14} weight="regular" />
           <span>{formattedDate}</span>
         </div>
         {safeAuthor && (
           <div className="flex items-center gap-2">
-            <User size={16} />
+            <User size={14} weight="regular" />
             <span>{safeAuthor}</span>
           </div>
         )}

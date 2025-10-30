@@ -86,13 +86,19 @@ function App() {
     return (
       <div className="min-h-screen bg-background">
         <Toaster />
-        <header className="border-b border-border bg-card/50 backdrop-blur-sm">
-          <div className="container mx-auto px-6 py-8 md:px-12 md:py-12">
-            <h1 className="mb-2 font-display text-4xl font-bold text-foreground md:text-5xl">
-              Blog
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Stories, insights, and ideas from our team
+        <header className="border-b border-border bg-white">
+          <div className="container mx-auto px-6 py-6 md:px-12">
+            <div className="flex items-center gap-3">
+              <svg className="h-8 w-8 text-primary" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-3.86-.96-7-5.14-7-9V8.3l7-3.5 7 3.5V11c0 3.86-3.14 8.04-7 9z"/>
+                <path d="M12 6L6 9v4c0 3.1 2.14 5.99 5 6.71 2.86-.72 5-3.61 5-6.71V9l-6-3z"/>
+              </svg>
+              <h1 className="text-2xl font-semibold text-foreground">
+                Contentful
+              </h1>
+            </div>
+            <p className="mt-4 text-base text-muted-foreground">
+              Explore our latest insights, stories, and updates
             </p>
           </div>
         </header>
@@ -111,13 +117,19 @@ function App() {
     return (
       <div className="min-h-screen bg-background">
         <Toaster />
-        <header className="border-b border-border bg-card/50 backdrop-blur-sm">
-          <div className="container mx-auto px-6 py-8 md:px-12 md:py-12">
-            <h1 className="mb-2 font-display text-4xl font-bold text-foreground md:text-5xl">
-              Blog
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Stories, insights, and ideas from our team
+        <header className="border-b border-border bg-white">
+          <div className="container mx-auto px-6 py-6 md:px-12">
+            <div className="flex items-center gap-3">
+              <svg className="h-8 w-8 text-primary" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-3.86-.96-7-5.14-7-9V8.3l7-3.5 7 3.5V11c0 3.86-3.14 8.04-7 9z"/>
+                <path d="M12 6L6 9v4c0 3.1 2.14 5.99 5 6.71 2.86-.72 5-3.61 5-6.71V9l-6-3z"/>
+              </svg>
+              <h1 className="text-2xl font-semibold text-foreground">
+                Contentful
+              </h1>
+            </div>
+            <p className="mt-4 text-base text-muted-foreground">
+              Explore our latest insights, stories, and updates
             </p>
           </div>
         </header>
@@ -142,13 +154,19 @@ function App() {
   return (
     <div className="min-h-screen bg-background">
       <Toaster />
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
-        <div className="container mx-auto px-6 py-8 md:px-12 md:py-12">
-          <h1 className="mb-2 font-display text-4xl font-bold text-foreground md:text-5xl">
-            Blog
-          </h1>
-          <p className="text-lg text-muted-foreground">
-            Stories, insights, and ideas from our team
+      <header className="border-b border-border bg-white">
+        <div className="container mx-auto px-6 py-6 md:px-12">
+          <div className="flex items-center gap-3">
+            <svg className="h-8 w-8 text-primary" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-3.86-.96-7-5.14-7-9V8.3l7-3.5 7 3.5V11c0 3.86-3.14 8.04-7 9z"/>
+              <path d="M12 6L6 9v4c0 3.1 2.14 5.99 5 6.71 2.86-.72 5-3.61 5-6.71V9l-6-3z"/>
+            </svg>
+            <h1 className="text-2xl font-semibold text-foreground">
+              Contentful
+            </h1>
+          </div>
+          <p className="mt-4 text-base text-muted-foreground">
+            Explore our latest insights, stories, and updates
           </p>
         </div>
       </header>
@@ -211,9 +229,9 @@ function App() {
         </div>
       </main>
 
-      <footer className="border-t border-border bg-card/50">
+      <footer className="border-t border-border bg-white">
         <div className="container mx-auto px-6 py-8 text-center text-sm text-muted-foreground md:px-12">
-          <p>&copy; {new Date().getFullYear()} Blog. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Contentful. All rights reserved.</p>
         </div>
       </footer>
     </div>
