@@ -20,21 +20,23 @@ if (spaceId && accessToken) {
 export { contentfulClient }
 
 export function transformBlogPost(entry: Entry<any>): BlogPostEntry {
-  const fields = entry.fields as BlogPost['fields']
+  const fields = entry.fields as any
   
   return {
     id: entry.sys.id,
-    title: fields.title || 'Untitled',
-    slug: fields.slug || '',
-    excerpt: fields.excerpt || '',
-    content: fields.content || null,
-    publishedDate: fields.publishedDate || entry.sys.createdAt,
+    title: fields.title || fields.name || 'Untitled',
+    slug: fields.slug || fields.title?.toLowerCase().replace(/\s+/g, '-') || entry.sys.id,
+    excerpt: fields.excerpt || fields.description || fields.summary || '',
+    content: fields.content || fields.body || fields.text || null,
+    publishedDate: fields.publishedDate || fields.date || entry.sys.createdAt,
     featuredImageUrl: fields.featuredImage?.fields?.file?.url
       ? `https:${fields.featuredImage.fields.file.url}`
+      : fields.image?.fields?.file?.url
+      ? `https:${fields.image.fields.file.url}`
       : undefined,
-    featuredImageAlt: fields.featuredImage?.fields?.title || fields.title,
-    author: fields.author,
-    category: fields.category,
+    featuredImageAlt: fields.featuredImage?.fields?.title || fields.image?.fields?.title || fields.title || 'Blog post image',
+    author: fields.author || fields.authorName || undefined,
+    category: fields.category || fields.categoryName || undefined,
     tags: fields.tags || [],
     createdAt: entry.sys.createdAt,
     updatedAt: entry.sys.updatedAt,
@@ -48,73 +50,14 @@ export async function getBlogPosts(): Promise<BlogPostEntry[]> {
 
   try {
     const response = await contentfulClient.getEntries({
-      content_type: 'blogPost',
-      order: ['-fields.publishedDate'],
       limit: 100,
     })
 
-    return response.items.map(transformBlogPost)
+    return response.items.map(transformBlogPost).sort((a, b) => {
+      return new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()
+    })
   } catch (error: any) {
     console.error('Error fetching blog posts:', error)
-    
-    if (error.sys?.id === 'NotFound') {
-      throw new Error('Unknown content type "blogPost". Please create the content model in Contentful.')
-    }
-    
-    if (error.message?.includes('The resource could not be found')) {
-      throw new Error('Unknown content type "blogPost". Please create the content model in Contentful.')
-    }
-    
     throw error
-  }
-}
-
-export async function getBlogPostBySlug(slug: string): Promise<BlogPostEntry | null> {
-  if (!contentfulClient) {
-    throw new Error('Contentful client not initialized. Please configure your credentials.')
-  }
-
-  try {
-    const response = await contentfulClient.getEntries({
-      content_type: 'blogPost',
-      'fields.slug': slug,
-      limit: 1,
-    })
-
-    if (response.items.length === 0) {
-      return null
-    }
-
-    return transformBlogPost(response.items[0])
-  } catch (error) {
-    console.error('Error fetching blog post:', error)
-    throw error
-  }
-}
-
-export async function getAllCategories(): Promise<string[]> {
-  if (!contentfulClient) {
-    return []
-  }
-
-  try {
-    const response = await contentfulClient.getEntries({
-      content_type: 'blogPost',
-      select: ['fields.category'],
-      limit: 1000,
-    })
-
-    const categories = new Set<string>()
-    response.items.forEach((item) => {
-      const category = (item.fields as any).category
-      if (category) {
-        categories.add(category)
-      }
-    })
-
-    return Array.from(categories).sort()
-  } catch (error) {
-    console.error('Error fetching categories:', error)
-    return []
   }
 }
