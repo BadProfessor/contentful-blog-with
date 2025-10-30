@@ -1,29 +1,48 @@
 import { useState, useEffect, useMemo } from 'react'
-import { useKV } from '@github/spark/hooks'
 import type { BlogPostEntry } from '@/types/blog'
 import { BlogPostCard } from '@/components/blog/BlogPostCard'
 import { BlogPostDetail } from '@/components/blog/BlogPostDetail'
 import { SearchBar } from '@/components/blog/SearchBar'
 import { CategoryFilter } from '@/components/blog/CategoryFilter'
 import { EmptyState } from '@/components/blog/EmptyState'
+import { ErrorState } from '@/components/blog/ErrorState'
+import { MissingCredentials } from '@/components/blog/MissingCredentials'
+import { BlogPostCardSkeleton } from '@/components/blog/BlogPostCardSkeleton'
 import { Separator } from '@/components/ui/separator'
 import { Toaster } from '@/components/ui/sonner'
-import { getSamplePosts } from '@/lib/sample-posts'
+import { toast } from 'sonner'
+import { getBlogPosts, contentfulClient } from '@/lib/contentful'
 
 function App() {
-  const [posts, setPosts] = useKV<BlogPostEntry[]>('blog-posts', [])
+  const [posts, setPosts] = useState<BlogPostEntry[]>([])
   const [selectedPost, setSelectedPost] = useState<BlogPostEntry | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
-  const [initialized, setInitialized] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const fetchPosts = async () => {
+    setLoading(true)
+    setError(null)
+    
+    try {
+      const fetchedPosts = await getBlogPosts()
+      setPosts(fetchedPosts)
+      
+      if (fetchedPosts.length === 0) {
+        toast.info('No blog posts found in Contentful')
+      }
+    } catch (err: any) {
+      console.error('Error loading blog posts:', err)
+      setError(err.message || 'Failed to load blog posts')
+      toast.error('Failed to load blog posts')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
-    if (!posts || (posts.length === 0 && !initialized)) {
-      setPosts(getSamplePosts())
-      setInitialized(true)
-    } else if (!initialized) {
-      setInitialized(true)
-    }
+    fetchPosts()
   }, [])
 
   const categories = useMemo(() => {
@@ -58,6 +77,56 @@ function App() {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }, [selectedPost])
+
+  if (!contentfulClient) {
+    return <MissingCredentials />
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Toaster />
+        <header className="border-b border-border bg-card/50 backdrop-blur-sm">
+          <div className="container mx-auto px-6 py-8 md:px-12 md:py-12">
+            <h1 className="mb-2 font-display text-4xl font-bold text-foreground md:text-5xl">
+              Blog
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              Stories, insights, and ideas from our team
+            </p>
+          </div>
+        </header>
+        <main className="container mx-auto px-6 py-12 md:px-12 md:py-20">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <BlogPostCardSkeleton key={i} />
+            ))}
+          </div>
+        </main>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Toaster />
+        <header className="border-b border-border bg-card/50 backdrop-blur-sm">
+          <div className="container mx-auto px-6 py-8 md:px-12 md:py-12">
+            <h1 className="mb-2 font-display text-4xl font-bold text-foreground md:text-5xl">
+              Blog
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              Stories, insights, and ideas from our team
+            </p>
+          </div>
+        </header>
+        <main className="container mx-auto px-6 py-12 md:px-12 md:py-20">
+          <ErrorState message={error} onRetry={fetchPosts} />
+        </main>
+      </div>
+    )
+  }
 
   if (selectedPost) {
     return (

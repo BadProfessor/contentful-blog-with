@@ -8,16 +8,23 @@ A modern, elegant blog platform with built-in persistence that delivers beautifu
 3. **Inviting** - Warm colors and thoughtful details encourage exploration and engagement
 
 **Complexity Level**: Light Application (multiple features with basic state)
-  - Displays blog posts using built-in persistence with list and detail views, search functionality, and category filtering
+  - Displays blog posts from Contentful CMS with list and detail views, search functionality, and category filtering
 
 ## Essential Features
 
+### Contentful Integration
+- **Functionality**: Connects to Contentful CMS to fetch real blog posts with credentials from environment variables
+- **Purpose**: Enables content management through Contentful's interface with real-time updates
+- **Trigger**: Application startup, fetches posts from Contentful API
+- **Progression**: App loads → Credentials validated → API request to Contentful → Transform data → Display posts
+- **Success criteria**: Connection succeeds, posts load within 2s, graceful error handling for missing credentials or API failures
+
 ### Blog Post List View
-- **Functionality**: Displays a grid of blog post cards with featured images, titles, excerpts, publication dates, and author information
+- **Functionality**: Displays a grid of blog post cards fetched from Contentful with featured images, titles, excerpts, publication dates, and author information
 - **Purpose**: Provides users with an overview of available content and enables quick scanning
-- **Trigger**: Landing on the home page or navigating back from a post detail
-- **Progression**: User loads app → Posts load from persistence → Grid displays instantly → User can scroll and browse
-- **Success criteria**: All posts display instantly, images load correctly (if available), excerpts are properly truncated
+- **Trigger**: Landing on the home page or navigating back from a post detail, after successful Contentful fetch
+- **Progression**: User loads app → Posts load from Contentful API → Loading skeletons display → Grid displays posts → User can scroll and browse
+- **Success criteria**: All posts display correctly, images load with proper CDN URLs, excerpts are properly truncated
 
 ### Blog Post Detail View
 - **Functionality**: Renders full blog post content with rich text formatting, images, metadata
@@ -41,11 +48,11 @@ A modern, elegant blog platform with built-in persistence that delivers beautifu
 - **Success criteria**: Filters apply instantly, active state is clear, filter combines with search
 
 ### Data Persistence
-- **Functionality**: Blog posts are stored using the built-in persistence API and initialized with sample content
-- **Purpose**: Provides a working blog out of the box while allowing data to persist across sessions
-- **Trigger**: Application startup checks for existing posts, initializes with samples if none exist
-- **Progression**: App loads → Check persistence → Load or initialize posts → Display content
-- **Success criteria**: Sample posts load on first run, data persists across page refreshes
+- **Functionality**: Blog posts are fetched from Contentful CMS via REST API using configured credentials
+- **Purpose**: Provides dynamic content management through Contentful's interface with professional CMS features
+- **Trigger**: Application startup validates credentials and fetches posts
+- **Progression**: App loads → Check env variables → Initialize Contentful client → Fetch posts → Display content or error
+- **Success criteria**: Credentials validate correctly, API calls succeed, loading states display, errors show helpful messages
 
 ## Edge Case Handling
 
@@ -53,6 +60,10 @@ A modern, elegant blog platform with built-in persistence that delivers beautifu
 - **No Category Match**: Show empty state when filtering by category with no matching posts
 - **Long Content**: Properly handle very long blog posts with smooth scrolling
 - **Missing Data**: Gracefully handle posts without optional fields (images, authors, tags) with appropriate fallbacks
+- **Missing Credentials**: Show setup guide with clear instructions when Contentful credentials are not configured
+- **API Errors**: Display error state with retry button when Contentful API fails or content type doesn't exist
+- **Loading States**: Show skeleton loaders while fetching posts from Contentful
+- **No Published Posts**: Show empty state when Contentful space has no published blog posts
 
 ## Design Direction
 
