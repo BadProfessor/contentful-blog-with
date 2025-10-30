@@ -22,22 +22,38 @@ export { contentfulClient }
 export function transformBlogPost(entry: Entry<any>): BlogPostEntry {
   const fields = entry.fields as any
   
+  let featuredImageUrl: string | undefined
+  
+  if (fields.featuredImage?.fields?.file?.url) {
+    featuredImageUrl = `https:${fields.featuredImage.fields.file.url}`
+  } else if (fields.image?.fields?.file?.url) {
+    featuredImageUrl = `https:${fields.image.fields.file.url}`
+  } else if (fields.heroImage?.fields?.file?.url) {
+    featuredImageUrl = `https:${fields.heroImage.fields.file.url}`
+  } else if (fields.thumbnail?.fields?.file?.url) {
+    featuredImageUrl = `https:${fields.thumbnail.fields.file.url}`
+  }
+  
+  const title = fields.title || fields.name || fields.heading || 'Untitled'
+  const slug = fields.slug || title.toLowerCase().replace(/\s+/g, '-') || entry.sys.id
+  
   return {
     id: entry.sys.id,
-    title: fields.title || fields.name || 'Untitled',
-    slug: fields.slug || fields.title?.toLowerCase().replace(/\s+/g, '-') || entry.sys.id,
-    excerpt: fields.excerpt || fields.description || fields.summary || '',
-    content: fields.content || fields.body || fields.text || null,
-    publishedDate: fields.publishedDate || fields.date || entry.sys.createdAt,
-    featuredImageUrl: fields.featuredImage?.fields?.file?.url
-      ? `https:${fields.featuredImage.fields.file.url}`
-      : fields.image?.fields?.file?.url
-      ? `https:${fields.image.fields.file.url}`
-      : undefined,
-    featuredImageAlt: fields.featuredImage?.fields?.title || fields.image?.fields?.title || fields.title || 'Blog post image',
-    author: fields.author || fields.authorName || undefined,
-    category: fields.category || fields.categoryName || undefined,
-    tags: fields.tags || [],
+    title,
+    slug,
+    excerpt: fields.excerpt || fields.description || fields.summary || fields.shortDescription || '',
+    content: fields.content || fields.body || fields.text || fields.richText || null,
+    publishedDate: fields.publishedDate || fields.date || fields.publishDate || entry.sys.createdAt,
+    featuredImageUrl,
+    featuredImageAlt: fields.featuredImage?.fields?.title 
+      || fields.image?.fields?.title 
+      || fields.heroImage?.fields?.title
+      || fields.thumbnail?.fields?.title
+      || title 
+      || 'Blog post image',
+    author: fields.author || fields.authorName || fields.writer || undefined,
+    category: fields.category || fields.categoryName || fields.type || undefined,
+    tags: Array.isArray(fields.tags) ? fields.tags : [],
     createdAt: entry.sys.createdAt,
     updatedAt: entry.sys.updatedAt,
   }
